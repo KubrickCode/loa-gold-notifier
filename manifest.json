@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "로아 골드 거래 알리미",
+  "version": "1.0",
+  "description": "디스코드 채널의 로스트아크 골드 거래 알림",
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "permissions": ["storage", "notifications"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://discord.com/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}

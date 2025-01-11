@@ -1,0 +1,103 @@
+body {
+  width: 300px;
+  padding: 16px;
+  margin: 0;
+  background-color: #f8f9fa;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  margin: 0;
+  color: #1a73e8;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+label {
+  font-size: 14px;
+  color: #5f6368;
+  font-weight: 500;
+}
+
+input[type="number"] {
+  padding: 8px 12px;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input[type="number"]:focus {
+  border-color: #1a73e8;
+  box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+}
+
+button {
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #1557b0;
+}
+
+button:disabled {
+  background-color: #dadce0;
+  cursor: not-allowed;
+}
+
+.description {
+  font-size: 13px;
+  color: #5f6368;
+  line-height: 1.5;
+}
+
+.description p {
+  margin: 0 0 8px 0;
+}
+
+.example {
+  background-color: #f8f9fa;
+  padding: 12px;
+  border-radius: 4px;
+  border-left: 3px solid #1a73e8;
+  font-size: 12px;
+}
+
+.example br {
+  margin-bottom: 4px;
+}
+
+input.error {
+  border-color: #dc3545;
+  background-color: #fff8f8;
+}
+
+#error-message {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 4px;
+}
