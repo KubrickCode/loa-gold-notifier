@@ -9,6 +9,7 @@
     "128": "icon.png"
   },
   "permissions": ["storage", "notifications"],
+  "host_permissions": ["https://discord.com/*"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": "icon.png"
