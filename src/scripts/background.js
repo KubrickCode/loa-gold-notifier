@@ -12,7 +12,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     chrome.notifications.create(
       {
         type: "basic",
-        iconUrl: "icon.png",
+        iconUrl: chrome.runtime.getURL("src/public/icon.png"),
         title: "골드 거래 알림",
         message: formattedMessage,
       },
