@@ -47,22 +47,30 @@ const checkNewMessages = async () => {
             reject(new Error("Extension context invalid"));
             return;
           }
-          chrome.storage.local.get(["maxRate", "lastSaveTime"], (items) => {
-            if (chrome.runtime.lastError) {
-              reject(chrome.runtime.lastError);
-            } else {
-              resolve(items);
+          chrome.storage.local.get(
+            ["maxRate", "lastSaveTime", "notificationsEnabled"],
+            (items) => {
+              if (chrome.runtime.lastError) {
+                reject(chrome.runtime.lastError);
+              } else {
+                resolve(items);
+              }
             }
-          });
+          );
         });
 
         const maxRate = result?.maxRate || 40;
         const lastSaveTime = result?.lastSaveTime || 0;
+        const notificationsEnabled = result?.notificationsEnabled !== false;
         const currentTime = Date.now();
 
         const messageTime = getMessageTimestamp(message);
 
-        if (messageTime > lastSaveTime && rate <= maxRate) {
+        if (
+          notificationsEnabled &&
+          messageTime > lastSaveTime &&
+          rate <= maxRate
+        ) {
           if (
             currentTime - state.lastNotificationTime >= NOTIFICATION_COOLDOWN &&
             state.notificationCount < MAX_NOTIFICATIONS_PER_MINUTE

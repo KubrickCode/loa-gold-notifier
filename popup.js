@@ -1,10 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
   const maxRateInput = document.getElementById("maxRate");
   const saveButton = document.getElementById("saveButton");
+  const notificationToggle = document.getElementById("notificationToggle");
 
-  chrome.storage.local.get(["maxRate"], (result) => {
-    maxRateInput.value = result.maxRate || 40;
-  });
+  chrome.storage.local.get(
+    ["maxRate", "notificationsEnabled", "lastSaveTime"],
+    (result) => {
+      maxRateInput.value = result.maxRate || 40;
+      notificationToggle.checked = result.notificationsEnabled !== false;
+    }
+  );
 
   const validateInput = (value) => {
     if (!/^\d+$/.test(value)) {
@@ -47,26 +52,26 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   saveButton.addEventListener("click", () => {
-    const value = maxRateInput.value;
-    const validation = validateInput(value);
+    const maxRate = maxRateInput.value;
+    const notificationsEnabled = notificationToggle.checked;
+    const savedTime = Date.now();
 
-    if (!validation.isValid) {
-      return;
-    }
+    chrome.storage.local.set(
+      {
+        maxRate,
+        notificationsEnabled,
+        lastSaveTime: savedTime,
+      },
+      () => {
+        const originalText = saveButton.textContent;
+        saveButton.textContent = "저장됨!";
+        saveButton.disabled = true;
 
-    const maxRate = parseInt(value);
-
-    const sanitizedMaxRate = maxRate.toString().replace(/[<>&"']/g, "");
-
-    const originalText = saveButton.textContent;
-    saveButton.textContent = "저장됨!";
-    saveButton.disabled = true;
-
-    chrome.storage.local.set({ maxRate: sanitizedMaxRate }, () => {
-      setTimeout(() => {
-        saveButton.textContent = originalText;
-        saveButton.disabled = false;
-      }, 1000);
-    });
+        setTimeout(() => {
+          saveButton.textContent = originalText;
+          saveButton.disabled = false;
+        }, 1000);
+      }
+    );
   });
 });
